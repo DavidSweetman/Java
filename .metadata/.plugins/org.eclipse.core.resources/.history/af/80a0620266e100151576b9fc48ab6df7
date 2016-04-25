@@ -1,0 +1,18 @@
+
+public class EventProgram {
+
+	public static void main(String[] args) {
+		IMessage service = new SmsService();
+		IStorage aList = new AttendeeList();
+		Meeting e = new Meeting("Test Event", "0870000001", aList);
+		Contractor c = new Contractor(service, "John", "Doe", "johndoe@email.com", "087000002", "JDandCo", "Jane", "" );
+		IAttendee g = new GeneralEmployee(service, "John", "Doe", "johndoe@email.com", "087000002", "01/01/50", 40.000, "Manager");
+		e.aList.AddMember(c);
+		e.aList.AddMember(g);
+		e.ContactMembers();
+		
+		
+
+	}
+
+}

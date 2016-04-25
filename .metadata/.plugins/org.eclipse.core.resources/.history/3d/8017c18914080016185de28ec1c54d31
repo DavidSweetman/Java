@@ -1,0 +1,55 @@
+
+public class Patient extends ObjectMapper implements IPerson{
+	
+	static String classname = "Patient";
+	public String name = "";
+	public String dob = "";
+	public String condition = "";
+	public String treatment = "";
+	public String vitals = "";
+	StringChecker stringChecker = new StringChecker();
+	
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		name = stringChecker.checkString(name);
+		this.name = name;
+	}
+	public String getDob() {
+		return dob;
+	}
+	public void setDob(String dob) {
+		this.dob = dob;
+	}
+	public String getCondition() {
+		return condition;
+	}
+	public void setCondition(String condition) {
+		condition = stringChecker.checkString(condition);
+		this.condition = condition;
+	}
+	public String getTreatment() {
+		return treatment;
+	}
+	public void setTreatment(String treatment) {
+		treatment = stringChecker.checkString(treatment);
+		this.treatment = treatment;
+	}
+	
+	public String toString(){
+		return this.getName();
+	}
+	public String getVitals() {
+		return vitals;
+	}
+	public void setVitals(String vitals) {
+		vitals = stringChecker.checkString(vitals);
+		this.vitals = vitals;
+	}
+	
+	
+
+
+}

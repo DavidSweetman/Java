@@ -1,0 +1,22 @@
+public class Meeting implements IEvent{
+	/* Class to create Event objects */
+	/*  */
+	public IStorage aList;
+	private String eventName;
+	private String eventContact;
+	
+	public Meeting(String eventName, String eventContact, IStorage aList) {
+		this.eventName = eventName;
+		this.eventContact = eventContact;
+		this.aList = aList;
+		
+	}
+	
+	
+	public void ContactMembers(){
+		this.aList.contact(eventContact);
+			
+			
+		}
+	
+}

@@ -1,0 +1,10 @@
+
+public interface IPerson {
+
+	String getName();
+
+	String getDob();
+
+	String getCondition();
+
+}

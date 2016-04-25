@@ -1,0 +1,100 @@
+
+public class DoubleLinkedList implements IStorage{
+
+	private Node head;
+	private int size;
+	
+	public DoubleLinkedList(){
+		head = null;
+		size = 0;
+	}
+	
+	// Returns Node at a certain position in the DLL
+	public Node getNode(int pos){
+		Node n = null;
+		for(int i=1; i<=pos; i++){
+			if (i==1){
+				n = this.head;
+			}else {
+				n = n.getNext();
+			}
+		}	
+		return n;
+	}
+	
+	// Returns the Node in the DLL with the highest Priority
+	public Node getHighestPriority(){
+		Node n = null;
+		int highestPriority = 0;
+		int pos = 0;
+		for (int i=1; i<=size; i++){
+			n = getNode(i);
+			if (n.getPriority()> highestPriority){
+				highestPriority = n.getPriority();
+				pos = i;
+			}
+		}
+		//System.out.println(pos);
+		n = getNode(pos);
+		return n;
+	}
+	
+	public void add(IPerson patient, int priority){
+		if (head == null){
+			head = new Node(patient, null, null, priority);
+		} else {
+			Node tail = getNode(this.size);
+			Node new_node = new Node(patient, tail, null, priority);
+			tail.setNext(new_node);
+		}
+		size += 1;
+	}
+	
+	public void remove(int pos){
+		if (pos == 1 && this.size != 1){
+			Node n = getNode(1);
+			this.head = n.getNext();
+			this.head.setPrev(null);
+		} else if (pos == size && size >1){
+			Node n = getNode(pos -1);
+			n.setNext(null);
+		} else if (pos == size && size==1){
+			this.head = null;	
+		} else {
+		
+			Node current = getNode(pos);
+			Node previous = getNode(pos - 1);
+			Node next = getNode(pos + 1);
+			previous.setNext(current.getNext());
+			next.setPrev(previous);
+			
+		}
+		size -= 1;
+		
+	}
+	
+	public String toString(){
+		String output = "";
+		
+		if (head != null){
+			Node n = head;
+			while (n != null){
+				output += " ***" + n.getPatient().toString() + "*** ";
+				n = n.getNext();
+			}
+		}
+		return output;
+	}
+	
+	public int getPosition(Node n){
+		int position = 0;
+		
+		for (int i = 1; i <= this.size; i++){
+			
+			if(getNode(i).equals(n)){
+				position = i;
+				}
+		}		
+		return position;
+	}
+}

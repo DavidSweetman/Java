@@ -1,0 +1,91 @@
+// Class to create Patient objects. Adheres to IPerson interface.
+public class Patient extends ObjectMapper implements IPerson{
+	
+	static String classname = "Patient";
+	public String name      = "";
+	public String dob       = "";
+	public String condition = "";
+	public String treatment = "";
+	public String vitals    = "";
+	public String address = "";
+	public String phone    = "";
+	public String checkIn = "";
+	public String checkOut = "";
+	
+	
+	
+	// Instantiation of String checker to allow ability to make sure strings are SQL-ready
+	StringChecker stringChecker = new StringChecker();
+	
+	
+	// Getters and Setters
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		name = stringChecker.checkString(name);
+		this.name = name;
+	}
+	public String getDob() {
+		return dob;
+	}
+	public void setDob(String dob) {
+		this.dob = dob;
+	}
+	public String getCondition() {
+		return condition;
+	}
+	public void setCondition(String condition) {
+		condition = stringChecker.checkString(condition);
+		this.condition = condition;
+	}
+	public String getTreatment() {
+		return treatment;
+	}
+	public void setTreatment(String treatment) {
+		treatment = stringChecker.checkString(treatment);
+		this.treatment = treatment;
+	}
+	
+	public String toString(){
+		return this.getName();
+	}
+	public String getVitals() {
+		return vitals;
+	}
+	public void setVitals(String vitals) {
+		vitals = stringChecker.checkString(vitals);
+		this.vitals = vitals;
+	}
+	
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		address = stringChecker.checkString(address);
+		this.address = address;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	
+	public String getCheckIn() {
+		return checkIn;
+	}
+	public void setCheckIn(String checkIn) {
+		this.checkIn = checkIn;
+	}
+	public String getCheckOut() {
+		return checkOut;
+	}
+	public void setCheckOut(String checkOut) {
+		this.checkOut = checkOut;
+	}
+	
+
+
+}

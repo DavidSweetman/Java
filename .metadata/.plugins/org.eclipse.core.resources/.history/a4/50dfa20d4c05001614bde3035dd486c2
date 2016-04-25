@@ -1,0 +1,18 @@
+
+public class SLLMain {
+
+	public static void main(String[] args) {
+		
+		SingleLinkedList sll = new SingleLinkedList();
+		
+		sll.add(new String("Annie Apple"));
+		sll.add(new String("Bouncy Ben"));
+		sll.add(new String("Clever Cat"));
+		sll.add(new String("Dipping Duck"));
+		
+		
+		System.out.println(sll.toString());
+
+	}
+
+}

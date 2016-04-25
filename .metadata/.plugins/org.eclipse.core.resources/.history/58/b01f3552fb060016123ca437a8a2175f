@@ -1,0 +1,215 @@
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.border.EmptyBorder;
+import javax.swing.text.JTextComponent;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Font;
+import javax.swing.JTabbedPane;
+
+public class PriorityQ extends JFrame {
+
+	private JTabbedPane contentPane;
+	private JTextField nameTF;
+	private JTextField priorityTF;
+	
+	Node n = null;
+	private JTextField dobTF;
+	private JTextField conditionTF;
+	private JTextField treatmentTF;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					PriorityQ frame = new PriorityQ();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public PriorityQ() {
+		
+		final DoubleLinkedList DLL = new DoubleLinkedList();
+		
+		Patient p1 = new Patient();
+		p1.setName("John Doe");
+		p1.setDob("01/01/80");
+		p1.setCondition("Condition 1");
+		
+		Patient p2 = new Patient();
+		p2.setName("Jane Doe");
+		p2.setDob("01/01/84");
+		p2.setCondition("Condition 2");
+
+		DLL.add(p1, 10);
+		DLL.add(p2, 8);
+		
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 745, 429);
+		contentPane = new JTabbedPane();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblName = new JLabel("Name");
+		lblName.setBounds(32, 70, 69, 20);
+		contentPane.add(lblName);
+		
+		nameTF = new JTextField();
+		nameTF.setBounds(116, 67, 146, 26);
+		contentPane.add(nameTF);
+		nameTF.setColumns(10);
+		
+		JLabel lblPriority = new JLabel("Priority");
+		lblPriority.setBounds(32, 268, 69, 20);
+		contentPane.add(lblPriority);
+		
+		priorityTF = new JTextField();
+		priorityTF.setBounds(116, 265, 146, 26);
+		contentPane.add(priorityTF);
+		priorityTF.setColumns(10);
+		
+		JButton btnAdd = new JButton("Add");
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//DLL.add(String.valueOf(nameTF.getText()), Integer.parseInt(priorityTF.getText()));
+				Patient p = new Patient();
+				p.setName(nameTF.getText());
+				p.setDob(dobTF.getText());
+				p.setCondition(conditionTF.getText());
+				DLL.add(p, 0);
+				
+			}
+		});
+		btnAdd.setBounds(32, 206, 115, 29);
+		contentPane.add(btnAdd);
+		
+		
+		JButton btnNext = new JButton("Next");
+		btnNext.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (n == null || n.getNext() == null){
+					n = DLL.getNode(1);
+					
+				}else{
+					n = n.getNext();
+				}
+				Patient p = n.getPatient();
+				nameTF.setText(p.getName());
+				dobTF.setText(p.getDob());
+				conditionTF.setText(p.getCondition());
+				priorityTF.setText(String.valueOf(n.getPriority()));
+				
+				
+				
+			}
+		});
+		btnNext.setBounds(177, 304, 115, 29);
+		contentPane.add(btnNext);
+		
+		JButton btnGetNext = new JButton("Get Next");
+		btnGetNext.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				n = DLL.getHighestPriority();
+				Patient p = n.getPatient();
+				nameTF.setText(p.getName());
+				dobTF.setText(p.getDob());
+				priorityTF.setText(String.valueOf(n.getPriority()));
+				
+			}
+		});
+		btnGetNext.setBounds(400, 304, 115, 29);
+		contentPane.add(btnGetNext);
+		
+		JLabel lblPatientProgram = new JLabel("Patient Program");
+		lblPatientProgram.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblPatientProgram.setBounds(252, 16, 223, 47);
+		contentPane.add(lblPatientProgram);
+		
+		JLabel lblDob = new JLabel("D.O.B");
+		lblDob.setBounds(32, 106, 69, 20);
+		contentPane.add(lblDob);
+		
+		dobTF = new JTextField();
+		dobTF.setBounds(116, 103, 146, 26);
+		contentPane.add(dobTF);
+		dobTF.setColumns(10);
+		
+		JLabel lblCondition = new JLabel("Condition");
+		lblCondition.setBounds(32, 143, 69, 20);
+		contentPane.add(lblCondition);
+		
+		conditionTF = new JTextField();
+		conditionTF.setBounds(116, 140, 146, 62);
+		contentPane.add(conditionTF);
+		conditionTF.setColumns(10);
+		
+		JButton btnSetPriority = new JButton("Set Priority");
+		
+		btnSetPriority.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				n.setPriority(Integer.parseInt(priorityTF.getText()));
+				
+				
+			}
+		});
+		
+		btnSetPriority.setBounds(32, 304, 115, 29);
+		contentPane.add(btnSetPriority);
+		
+		JLabel lblTreatment = new JLabel("Treatment");
+		lblTreatment.setBounds(400, 70, 93, 20);
+		contentPane.add(lblTreatment);
+		
+		treatmentTF = new JTextField();
+		treatmentTF.setBounds(400, 100, 242, 135);
+		contentPane.add(treatmentTF);
+		treatmentTF.setColumns(10);
+		
+		JButton btnReleasePatient = new JButton("Release Patient");
+		btnReleasePatient.setBounds(530, 304, 146, 29);
+		contentPane.add(btnReleasePatient);
+		
+		JButton btnSubmitTreatment = new JButton("Submit Treatment");
+		btnSubmitTreatment.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Patient p = n.getPatient();
+				p.setTreatment(treatmentTF.getText());	
+			}
+		});
+		btnSubmitTreatment.setBounds(400, 239, 201, 29);
+		contentPane.add(btnSubmitTreatment);
+		
+		JButton btnClear = new JButton("Clear");
+		btnClear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				treatmentTF.setText("");
+				nameTF.setText("");
+				dobTF.setText("");
+				conditionTF.setText("");
+				priorityTF.setText("");
+			}
+		});
+		btnClear.setBounds(177, 206, 115, 29);
+		contentPane.add(btnClear);
+	}
+}

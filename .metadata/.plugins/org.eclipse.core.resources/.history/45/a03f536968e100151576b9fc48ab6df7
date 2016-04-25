@@ -1,0 +1,31 @@
+public class Person implements IAttendee{
+	public String firstname;
+	public String lastname;
+	public String email;
+	public String mobile_no;
+	private IMessage msg;
+	
+	public Person(IMessage msg, String fname, String lname, String email, String mobile_no){
+		this.firstname = fname;
+		this.lastname = lname;
+		this.email = email;
+		this.mobile_no = mobile_no;
+		this.msg = msg;
+		
+	}
+	
+	
+	public void contact(String msg_from, String msg_to, String message){
+		msg.sendMessage(msg_from, msg_to, message);
+	}
+	
+	public String getFullName(){
+		
+		return (this.firstname + " " + this.lastname);
+	}
+	
+	public String getContact(){
+		return this.mobile_no;
+	}
+	
+}

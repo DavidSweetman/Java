@@ -1,0 +1,21 @@
+
+public class EventProgram {
+	
+	
+	//Small runnable class to check all elements work
+	public static void main(String[] args) {
+		IMessage service = new SmsService();
+		IMessage service2 = new EmailService();
+		IStorage aList = new AttendeeList();
+		Meeting m = new Meeting("Test Event", "0870000001", aList);
+		Contractor c = new Contractor(service, "John", "Doe", "johndoe@email.com", "087000002", "JDandCo", "Jane", "" );
+		IAttendee g = new GeneralEmployee(service2, "John", "Doe", "johndoe@email.com", "087000002", "01/01/50", 40.000, "Manager");
+		m.aList.AddMember(c);
+		m.aList.AddMember(g);
+		m.ContactMembers();
+		
+		
+
+	}
+
+}

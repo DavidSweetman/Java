@@ -1,0 +1,7 @@
+public interface IStorage {
+
+
+	public void AddMember(IAttendee i);
+	public int size();
+	public IAttendee getAttendee(int i);
+}

@@ -1,0 +1,26 @@
+public class Meeting implements Event{
+	/* Class to create Event objects */
+	/*  */
+	public IStorage aList;
+	private String eventName;
+	private String eventContact;
+	
+	public Meeting(String eventName, String eventContact, IStorage aList) {
+		this.eventName = eventName;
+		this.eventContact = eventContact;
+		this.aList = aList;
+		
+	}
+	
+	
+	public void ContactMembers(){
+		for (int i = 0 ; i < aList.size(); i++){
+			IAttendee member = aList.getAttendee(i);
+			String message = "Dear " + member.getFullName() + ". Thank you for attending " + this.eventName+".";
+			
+			member.contact(member.getContact(), this.eventContact , message);
+			
+			
+		}
+	}
+}

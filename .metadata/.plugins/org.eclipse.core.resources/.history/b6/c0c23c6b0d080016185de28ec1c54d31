@@ -1,0 +1,12 @@
+
+public interface IStorage {
+	
+	public void add(Patient patient, int priority);
+	public void remove(int pos);
+	public int getPosition(Node n);
+	public Node getNode();
+	public Node getHighestPriority();
+	
+	
+
+}

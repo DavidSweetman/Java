@@ -1,0 +1,445 @@
+
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JTabbedPane;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JTextArea;
+import javax.swing.JButton;
+import javax.swing.JSlider;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.LineBorder;
+import java.awt.SystemColor;
+
+@SuppressWarnings("serial")
+public class HospitalGUI extends JFrame {
+
+	public Node n = null;
+	private JPanel contentPane;
+	private JTextField nameTF;
+	private JTextField dobTF;
+	private JTextArea conditionTA;
+	private JTextField name2TF;
+	private JTextField dob2TF;
+	private JTextArea condition2TA;
+	private JTextArea vitalsTA;
+	private JSlider prioritySlider;
+	private JTextArea condition3TA;
+	private JTextArea vitals3TA;
+	
+	public IStorage DLL = new DoubleLinkedList();
+	private JTextField name3TF;
+	private JTextField priorityTF;
+	private JTextArea treatmentTA;
+	private JTextField errorTF;
+	private JTextField error2TF;
+	private JTextField addressTF;
+	private JTextField phoneTF;
+	private JTextField error1TF;
+
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					HospitalGUI frame = new HospitalGUI();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public HospitalGUI() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 1038, 706);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBackground(new Color(176, 196, 222));
+		tabbedPane.setBounds(29, 16, 972, 618);
+		contentPane.add(tabbedPane);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(224, 255, 255));
+		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		tabbedPane.addTab("Reception", null, panel, null);
+		panel.setLayout(null);
+		
+		JLabel lblName = new JLabel("Name:");
+		lblName.setBounds(87, 151, 69, 20);
+		panel.add(lblName);
+		
+		nameTF = new JTextField();
+		nameTF.setBounds(186, 148, 146, 26);
+		panel.add(nameTF);
+		nameTF.setColumns(10);
+		
+		JLabel lblDob = new JLabel("D.O.B.");
+		lblDob.setBounds(87, 214, 69, 20);
+		panel.add(lblDob);
+		
+		dobTF = new JTextField();
+		dobTF.setToolTipText("Format dd/mm/yy  ");
+		dobTF.setBounds(186, 211, 146, 26);
+		panel.add(dobTF);
+		dobTF.setColumns(10);
+		
+		JLabel lblCondition = new JLabel("Condition");
+		lblCondition.setBounds(87, 277, 69, 20);
+		panel.add(lblCondition);
+		
+		conditionTA = new JTextArea();
+		conditionTA.setBackground(new Color(255, 255, 255));
+		conditionTA.setBounds(186, 277, 398, 162);
+		panel.add(conditionTA);
+		
+		JButton btnAdd = new JButton("Add");
+		btnAdd.setBackground(SystemColor.activeCaption);
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//DLL.add(String.valueOf(nameTF.getText()), Integer.parseInt(priorityTF.getText()));
+				IPerson p = new Patient();
+				p.setName(nameTF.getText());
+				p.setDob(dobTF.getText());
+				p.setCondition(conditionTA.getText());
+				p.setPhone(phoneTF.getText());
+				p.setAddress(addressTF.getText());
+				p.setCheckIn(CheckTime.getTime());
+				p.save();
+				DLL.add(p, 0);
+				nameTF.setText("");
+				dobTF.setText("");
+				conditionTA.setText("");
+				phoneTF.setText("");
+				addressTF.setText("");
+				n = DLL.getNode(DLL.getSize());
+				
+				
+				
+				//p.save();
+				
+			}
+		});
+		btnAdd.setBounds(185, 469, 157, 62);
+		panel.add(btnAdd);
+		
+		JButton btnClear = new JButton("Clear");
+		btnClear.setBackground(new Color(192, 192, 192));
+		btnClear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				nameTF.setText("");
+				dobTF.setText("");
+				conditionTA.setText("");
+				phoneTF.setText("");
+				addressTF.setText("");
+				
+				
+			}
+		});
+		btnClear.setBounds(438, 469, 146, 62);
+		panel.add(btnClear);
+		
+		addressTF = new JTextField();
+		addressTF.setBounds(438, 148, 146, 26);
+		panel.add(addressTF);
+		addressTF.setColumns(10);
+		
+		phoneTF = new JTextField();
+		phoneTF.setBounds(438, 211, 146, 26);
+		panel.add(phoneTF);
+		phoneTF.setColumns(10);
+		
+		JLabel lblAddress = new JLabel("Address");
+		lblAddress.setBounds(354, 151, 69, 20);
+		panel.add(lblAddress);
+		
+		JLabel lblPhone = new JLabel("Phone");
+		lblPhone.setBounds(354, 214, 69, 20);
+		panel.add(lblPhone);
+		
+		
+		
+		error1TF = new JTextField();
+		error1TF.setEditable(false);
+		error1TF.setBounds(0, 81, 187, 26);
+		panel.add(error1TF);
+		error1TF.setColumns(10);
+		
+		JButton btnPrevious = new JButton("Get Previous Patients");
+		btnPrevious.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				error1TF.setText("");
+				try{
+					if (n == null || n.getPrev() == null){
+						n = DLL.getNode(1);
+						
+					}else{
+						n = n.getPrev();
+					}	
+				
+				IPerson p1 = n.getPatient();
+				
+				nameTF.setText(p1.getName());
+				dobTF.setText(p1.getDob());
+				conditionTA.setText(p1.getCondition());
+				phoneTF.setText(p1.getPhone());
+				addressTF.setText(p1.getAddress());
+				}catch(Exception error){
+					error1TF.setText("Error");
+				}
+				
+			}
+		});
+		btnPrevious.setBounds(0, 0, 187, 82);
+		panel.add(btnPrevious);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(224, 255, 255));
+		tabbedPane.addTab("Triage", null, panel_1, null);
+		panel_1.setLayout(null);
+		
+		JLabel lblName_1 = new JLabel("Name");
+		lblName_1.setBounds(27, 164, 69, 20);
+		panel_1.add(lblName_1);
+		
+		JLabel lblNewLabel = new JLabel("D.O.B");
+		lblNewLabel.setBounds(27, 220, 69, 20);
+		panel_1.add(lblNewLabel);
+		
+		name2TF = new JTextField();
+		name2TF.setEditable(false);
+		name2TF.setBounds(103, 161, 238, 26);
+		panel_1.add(name2TF);
+		name2TF.setColumns(10);
+		
+		
+		dob2TF = new JTextField();
+		dob2TF.setEditable(false);
+		dob2TF.setBounds(103, 217, 238, 26);
+		panel_1.add(dob2TF);
+		dob2TF.setColumns(10);
+		
+		condition2TA = new JTextArea();
+		condition2TA.setForeground(new Color(0, 0, 0));
+		condition2TA.setBackground(new Color(245, 245, 245));
+		condition2TA.setEditable(false);
+		condition2TA.setBounds(106, 302, 235, 183);
+		panel_1.add(condition2TA);
+		
+		JLabel lblCondition_1 = new JLabel("Condition");
+		lblCondition_1.setBounds(27, 302, 69, 20);
+		panel_1.add(lblCondition_1);
+		
+		JLabel lblVitals = new JLabel("Vitals");
+		lblVitals.setBounds(427, 164, 69, 20);
+		panel_1.add(lblVitals);
+		
+		prioritySlider = new JSlider();
+		prioritySlider.setBackground(SystemColor.textHighlightText);
+		prioritySlider.setBorder(new LineBorder(new Color(0, 0, 0)));
+		prioritySlider.setMinimum(1);
+		prioritySlider.setMajorTickSpacing(9);
+		prioritySlider.setMinorTickSpacing(1);
+		prioritySlider.setPaintLabels(true);
+		prioritySlider.setPaintTicks(true);
+		prioritySlider.setValue(5);
+		prioritySlider.setMaximum(10);
+		prioritySlider.setBounds(495, 434, 220, 76);
+		panel_1.add(prioritySlider);
+		
+		JLabel lblPriority = new JLabel("Priority");
+		lblPriority.setBounds(427, 436, 69, 20);
+		panel_1.add(lblPriority);
+		
+		vitalsTA = new JTextArea();
+		vitalsTA.setBounds(495, 164, 405, 194);
+		panel_1.add(vitalsTA);
+		
+		
+		errorTF = new JTextField();
+		errorTF.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		errorTF.setForeground(Color.RED);
+		errorTF.setEditable(false);
+		errorTF.setColumns(10);
+		errorTF.setBounds(0, 81, 186, 26);
+		panel_1.add(errorTF);
+		
+		
+		JButton btnSetPriority = new JButton("Set Details");
+		btnSetPriority.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnSetPriority.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				n.getPatient().setVitals(vitalsTA.getText());
+				n.setPriority(prioritySlider.getValue());
+				n.getPatient().save();
+				name2TF.setText("");
+				dob2TF.setText("");
+				condition2TA.setText("");
+				vitalsTA.setText("");
+				prioritySlider.setValue(0);
+				error2TF.setText("");
+				
+				
+			}
+		});
+		btnSetPriority.setBounds(787, 434, 113, 76);
+		panel_1.add(btnSetPriority);
+		
+		JButton btnGetNextPatient = new JButton("Get Next Patient");
+		btnGetNextPatient.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				errorTF.setText("");
+				try{
+				if (n == null || n.getNext() == null){
+					n = DLL.getNode(1);
+					
+				}else{
+					n = n.getNext();
+				}
+				while(n.getPriority() != 0){
+					n = n.getNext();
+				}
+				
+				IPerson p = n.getPatient();
+				name2TF.setText(p.getName());
+				dob2TF.setText(p.getDob());
+				condition2TA.setText(p.getCondition());
+				}catch(NullPointerException NPe){
+					errorTF.setText("No More Patients");
+				}
+				
+			}
+		});
+		btnGetNextPatient.setBounds(0, 0, 187, 82);
+		panel_1.add(btnGetNextPatient);
+		
+		
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(new Color(224, 255, 255));
+		tabbedPane.addTab("Doctors Assessment", null, panel_2, null);
+		panel_2.setLayout(null);
+		
+		JLabel lblName_2 = new JLabel("Name");
+		lblName_2.setBounds(46, 179, 69, 20);
+		panel_2.add(lblName_2);
+		
+		JLabel lblCondition_2 = new JLabel("Condition");
+		lblCondition_2.setBounds(46, 229, 69, 20);
+		panel_2.add(lblCondition_2);
+		
+		JLabel lblVitals_1 = new JLabel("Vitals");
+		lblVitals_1.setBounds(46, 381, 69, 20);
+		panel_2.add(lblVitals_1);
+		
+		JLabel lblPriority_1 = new JLabel("Priority");
+		lblPriority_1.setBounds(46, 500, 69, 20);
+		panel_2.add(lblPriority_1);
+		
+		name3TF = new JTextField();
+		name3TF.setBackground(SystemColor.control);
+		name3TF.setEditable(false);
+		name3TF.setBounds(130, 176, 257, 26);
+		panel_2.add(name3TF);
+		name3TF.setColumns(10);
+		
+		condition3TA = new JTextArea();
+		condition3TA.setBackground(SystemColor.control);
+		condition3TA.setEditable(false);
+		condition3TA.setBounds(130, 229, 257, 118);
+		panel_2.add(condition3TA);
+		
+		vitals3TA = new JTextArea();
+		vitals3TA.setBackground(SystemColor.control);
+		vitals3TA.setEditable(false);
+		vitals3TA.setBounds(130, 363, 257, 118);
+		panel_2.add(vitals3TA);
+		
+		priorityTF = new JTextField();
+		priorityTF.setBackground(SystemColor.control);
+		priorityTF.setEditable(false);
+		priorityTF.setBounds(187, 497, 45, 26);
+		panel_2.add(priorityTF);
+		priorityTF.setColumns(10);
+		
+		JLabel lblTreatment = new JLabel("Treatment");
+		lblTreatment.setBounds(430, 179, 89, 20);
+		panel_2.add(lblTreatment);
+		
+		treatmentTA = new JTextArea();
+		treatmentTA.setBounds(534, 176, 335, 168);
+		panel_2.add(treatmentTA);
+		
+		JButton btnRelease = new JButton("Release Patient");
+		btnRelease.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try{
+				IPerson p = n.getPatient();
+				p.setTreatment(treatmentTA.getText());
+				p.setCheckOut(CheckTime.getTime());
+				p.save();
+				name3TF.setText("");
+				condition3TA.setText("");
+				vitals3TA.setText("");
+				priorityTF.setText("");
+				treatmentTA.setText("");
+				DLL.remove(DLL.getPosition(n));
+				}catch(Exception e){}
+				
+			}
+		});
+		btnRelease.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnRelease.setBounds(534, 388, 204, 52);
+		panel_2.add(btnRelease);
+		
+		error2TF = new JTextField();
+		error2TF.setForeground(Color.RED);
+		error2TF.setEditable(false);
+		error2TF.setBounds(0, 81, 186, 26);
+		panel_2.add(error2TF);
+		error2TF.setColumns(10);
+		
+		JButton btnNextPriority = new JButton("Get Next Patient");
+		btnNextPriority.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try{
+				n = DLL.getHighestPriority();
+				IPerson p = n.getPatient();
+				name3TF.setText(p.getName());
+				condition3TA.setText(p.getCondition());
+				vitals3TA.setText(p.getVitals());
+				priorityTF.setText(String.valueOf(n.getPriority()));
+				}catch(NullPointerException NP2e){
+					error2TF.setText("No More Patients");
+				}
+				
+			}
+		});
+		btnNextPriority.setBounds(0, 0, 187, 82);
+		panel_2.add(btnNextPriority);
+		
+		
+	}
+}

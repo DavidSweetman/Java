@@ -1,0 +1,102 @@
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class PriorityQ extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField nameTF;
+	private JTextField priorityTF;
+	
+	Node n = null;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					PriorityQ frame = new PriorityQ();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public PriorityQ() {
+		
+		final SingleLinkedList SLL = new SingleLinkedList();
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 745, 429);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblName = new JLabel("Name");
+		lblName.setBounds(252, 96, 69, 20);
+		contentPane.add(lblName);
+		
+		nameTF = new JTextField();
+		nameTF.setBounds(353, 93, 146, 26);
+		contentPane.add(nameTF);
+		nameTF.setColumns(10);
+		
+		JLabel lblPriority = new JLabel("Priority");
+		lblPriority.setBounds(252, 143, 69, 20);
+		contentPane.add(lblPriority);
+		
+		priorityTF = new JTextField();
+		priorityTF.setBounds(353, 135, 146, 26);
+		contentPane.add(priorityTF);
+		priorityTF.setColumns(10);
+		
+		JButton btnAdd = new JButton("Add");
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				SLL.add(String.valueOf(nameTF.getText()), Integer.parseInt(priorityTF.getText()));
+			}
+		});
+		btnAdd.setBounds(256, 212, 115, 29);
+		contentPane.add(btnAdd);
+		
+		
+		JButton btnNext = new JButton("Next");
+		btnNext.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (n == null || n.getNext() == null){
+					n = SLL.getNode(1);
+					
+				}else{
+					n = n.getNext();
+				}
+				nameTF.setText(n.getData().toString());
+				priorityTF.setText(String.valueOf(n.getPriority()));
+				
+				
+				
+			}
+		});
+		btnNext.setBounds(256, 257, 115, 29);
+		contentPane.add(btnNext);
+		
+		JButton btnGetNext = new JButton("Get Next");
+		btnGetNext.setBounds(256, 302, 115, 29);
+		contentPane.add(btnGetNext);
+	}
+}

@@ -1,0 +1,7 @@
+public interface IStorage {
+
+
+	public void AddMember(IAttendee i);
+	public IAttendee getAttendee(int i);
+	public void contact(String s, String m);
+}

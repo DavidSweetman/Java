@@ -1,0 +1,11 @@
+
+public class StringChecker {
+	
+	public String checkString(String s){
+		if(s.contains("'")){
+			s = s.replace("'", "");
+		}
+		return s;
+	}
+
+}

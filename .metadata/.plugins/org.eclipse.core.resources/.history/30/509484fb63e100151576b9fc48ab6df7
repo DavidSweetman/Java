@@ -1,0 +1,34 @@
+import java.util.ArrayList;
+
+public class AttendeeList implements IStorage{
+	ArrayList<IAttendee> attendeelist;
+	
+	public AttendeeList(){
+		attendeelist = new ArrayList<IAttendee>();
+				
+	}
+	
+	
+	public void AddMember(IAttendee i){
+		attendeelist.add(i);
+		System.out.println("Attendee Successfully added");
+	}
+	
+	public int size(){
+		return attendeelist.size();
+	}
+	
+	public IAttendee getAttendee(int i){
+		return attendeelist.get(i);
+		
+	}
+	
+	public void contact(String eventcontact){
+		for (int i = 0 ; i < this.size(); i++){
+			IAttendee member = this.getAttendee(i);
+			String message = "Enter Message to be sent";
+			
+			member.contact(member.getContact(), eventcontact , message);
+	}
+	}
+}
